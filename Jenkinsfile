@@ -7,8 +7,14 @@ pipeline {
             }
         }
         stage('Run') {
+            agent {
+                docker {
+                    image 'node-todo-app'
+                    reuseNode true
+                }
+            }
             steps {
-                sh 'docker run -d -p 8000:8000 --name node-todo-app node-todo-app'
+                sh 'node app.js'
             }
         }
     }
